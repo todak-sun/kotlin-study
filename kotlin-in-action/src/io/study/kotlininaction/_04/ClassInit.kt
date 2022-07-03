@@ -27,3 +27,10 @@ class User3 {
     }
 }
 
+open class User4(_nickname: String) {
+    val nickname = _nickname
+}
+
+class TwitterUser(nickname: String) : User4(nickname) {
+
+}
