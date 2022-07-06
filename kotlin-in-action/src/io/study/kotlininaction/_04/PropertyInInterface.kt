@@ -17,7 +17,6 @@ class FacebookUser(val accountId: Int) : User5 {
     override val nickname = getFacebookName(accountId) // 프로퍼티 초기화 식
 
     fun getFacebookName(accountId: Int): String {
-
         return "$accountId is your name"
     }
 }
