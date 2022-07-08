@@ -14,6 +14,8 @@ class Client(val name: String, val postalCode: Int) {
 data class DataClient(val name: String, val postalCode: Int)
 // data 클래스는 equals, hashcode, toString을 모두  만들어준다.
 
+// 무저ㅣ
+
 fun main() {
     val client1 = Client("Todak", 123)
     val client2 = Client("Todak", 123)
