@@ -24,6 +24,13 @@ fun main() {
 
     val processed = hashSetOf(Client("선용주", 1234))
     println("""processed.contains(Client("선용주", 1234)) : ${processed.contains(Client("선용주", 1234))}""")
+
+    val dataClient = DataClient("name", 1234)
+    val copiedDataClient = dataClient.copy()
+    println("dataClient == copiedDataClient ${dataClient == copiedDataClient}")
+
+
+
 }
 
 
