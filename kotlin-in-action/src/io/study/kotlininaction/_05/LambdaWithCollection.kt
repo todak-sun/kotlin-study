@@ -20,4 +20,10 @@ fun main() {
 
     println(people.maxBy { it.age })
     println(people.maxBy(Person::age))
+
+
+    println("=".repeat(50))
+
+    val list = listOf(1, 2, 3, 4);
+    println(list.filter { it % 2 == 0 })
 }
