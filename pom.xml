@@ -13,6 +13,7 @@
     <modules>
         <module>kopring</module>
         <module>kotlin-fundamentals</module>
+        <module>kotlin-leetcode</module>
     </modules>
 
 </project>

@@ -7,6 +7,7 @@
           <option name="additionalArguments" value="-Xjsr305=strict" />
         </compilerSettings>
         <compilerArguments>
+          <option name="jvmTarget" value="1.8" />
           <option name="languageVersion" value="1.6" />
           <option name="apiVersion" value="1.6" />
           <option name="pluginOptions">
@@ -21,7 +22,7 @@
           </option>
           <option name="pluginClasspaths">
             <array>
-              <option value="$APPLICATION_HOME_DIR$/plugins/Kotlin/kotlinc/lib/allopen-compiler-plugin.jar" />
+              <option value="$APPLICATION_PLUGINS_DIR$/Kotlin/kotlinc/lib/allopen-compiler-plugin.jar" />
             </array>
           </option>
           <option name="errors">
