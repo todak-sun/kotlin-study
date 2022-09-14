@@ -4,6 +4,19 @@ plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.6.21'
     id 'org.jetbrains.kotlin.plugin.jpa' version '1.6.21'
+    /**
+     * @ManyToOne Lazy Fetching 등을 활용할 때에는 클래스가 상속 가능해야한다.
+     * 하지만, 코틀린의 경우 기본이 상속 불가능한 클래스이기 때문에, 본 플러그인을 적용해야 한다.
+     * 'org.jetbrains.kotlin.plugin.allopen'
+     */
+    id 'org.jetbrains.kotlin.plugin.allopen' version '1.6.21'
+    /**
+     * Spring의 AOP 기능등을 활용하기 위해서는 Spring이 상속 등이 가능해야한다.
+     * 클래스, 함수에 open 키워드를 상시 붙이는 것은 좋은 방법이 아니므로 아래의 플러그인을 설정한다.
+     * 'org.jetbrains.kotlin.plugin.spring'
+     */
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.6.21'
+
 }
 
 group = 'com.group'
@@ -21,6 +34,12 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.6.21'
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+allOpen {
+    annotation('javax.persistence.Entity')
+    annotation('javax.persistence.MappedSuperclass')
+    annotation('javax.persistence.Embeddable')
 }
 
 tasks.named('test') {
