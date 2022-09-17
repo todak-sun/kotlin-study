@@ -48,6 +48,8 @@ class UserService(private val userRepository: UserRepository) {
                 books = user.userLoanHistories.map { history ->
                     BookHistoryResponse(
                         name = history.bookName,
+
+
                         isReturn = history.status == UserLoanStatus.RETURNED
                     )
                 }
