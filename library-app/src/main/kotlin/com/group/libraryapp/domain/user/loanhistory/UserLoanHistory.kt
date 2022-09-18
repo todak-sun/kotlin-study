@@ -17,6 +17,8 @@ class UserLoanHistory(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 ) {
+    val isReturn: Boolean
+        get() = this.status == UserLoanStatus.RETURNED
 
     fun doReturn() {
         this.status = UserLoanStatus.RETURNED
@@ -28,7 +30,7 @@ class UserLoanHistory(
             bookName: String = "굳세어라 금순아",
             status: UserLoanStatus = UserLoanStatus.LOANED,
             id: Long? = null
-        ) : UserLoanHistory {
+        ): UserLoanHistory {
             return UserLoanHistory(user = user, bookName = bookName, status = status, id = id)
         }
     }

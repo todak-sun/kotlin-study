@@ -34,7 +34,7 @@ class UserController(
 
     @GetMapping("/user/loan")
     fun getUserLoanHistories() : List<UserLoanHistoryResponse> {
-        return userService.getUserLoanHsitories()
+        return userService.getUserLoanHistories()
     }
 
 }
