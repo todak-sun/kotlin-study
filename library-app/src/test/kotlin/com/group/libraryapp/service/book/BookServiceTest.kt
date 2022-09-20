@@ -115,5 +115,26 @@ class BookServiceTest @Autowired constructor(
         assertThat(loanHistories[0].status).isEqualTo(UserLoanStatus.RETURNED)
     }
 
+    @Test
+    @DisplayName("책 별로 얼마나 많은 수량이 있는지 리턴한다.")
+    fun getBookStatisticTest() {
+        // given
+        this.bookRepository.saveAll(
+            listOf(
+                Book.fixture(type = BookType.COMPUTER),
+                Book.fixture(type = BookType.COMPUTER),
+                Book.fixture(type = BookType.ECONOMY),
+                Book.fixture(type = BookType.LANGUAGE)
+            )
+        )
+
+        // when
+        val statistic = this.bookService.getBookStatistic()
+
+        // then
+        assertThat(statistic).hasSize(3)
+        assertThat(statistic).extracting("count").containsExactlyInAnyOrder(2, 1, 1)
+    }
+
 
 }
