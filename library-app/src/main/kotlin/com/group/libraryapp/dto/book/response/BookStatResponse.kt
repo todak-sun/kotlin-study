@@ -4,9 +4,5 @@ import com.group.libraryapp.domain.book.BookType
 
 data class BookStatResponse(
     val type: BookType,
-    var count: Int,
-) {
-    fun increase() {
-        this.count += 1
-    }
-}
+    val count: Int,
+)

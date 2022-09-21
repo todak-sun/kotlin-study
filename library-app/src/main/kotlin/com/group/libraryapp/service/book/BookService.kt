@@ -2,7 +2,6 @@ package com.group.libraryapp.service.book
 
 import com.group.libraryapp.domain.book.Book
 import com.group.libraryapp.domain.book.BookRepository
-import com.group.libraryapp.domain.book.BookType
 import com.group.libraryapp.domain.user.UserRepository
 import com.group.libraryapp.domain.user.loanhistory.UserLoanHistoryRepository
 import com.group.libraryapp.domain.user.loanhistory.UserLoanStatus
@@ -23,7 +22,10 @@ class BookService(
 
     @Transactional
     fun saveBook(request: BookRequest) {
-        val newBook = Book.fixture(name = request.name, type = request.type)
+        val newBook = Book.fixture(
+            name = request.name,
+            type = request.type
+        )
         bookRepository.save(newBook)
     }
 
@@ -47,18 +49,14 @@ class BookService(
 
     @Transactional(readOnly = true)
     fun countLoanedBook(): Int {
-        return userLoanHistoryRepository.findAllByStatus(UserLoanStatus.LOANED).size
+        return userLoanHistoryRepository.countByStatus(UserLoanStatus.LOANED).toInt()
     }
 
     @Transactional(readOnly = true)
     fun getBookStatistic(): List<BookStatResponse> {
-        val map = mutableMapOf<BookType, BookStatResponse>()
-        val books = bookRepository.findAll()
-        for (book in books) {
-            map[book.type]?.increase()
-                ?: map.put(book.type, BookStatResponse(book.type, 1))
-        }
-        return map.values.map { it }
+        return bookRepository.findAll()
+            .groupBy { it.type }
+            .map { (type, books) -> BookStatResponse(type, books.size) }
     }
 
 }

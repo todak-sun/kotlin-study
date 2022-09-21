@@ -5,11 +5,13 @@ import com.group.libraryapp.domain.book.BookRepository
 import com.group.libraryapp.domain.book.BookType
 import com.group.libraryapp.domain.user.User
 import com.group.libraryapp.domain.user.UserRepository
+import com.group.libraryapp.domain.user.loanhistory.UserLoanHistory
 import com.group.libraryapp.domain.user.loanhistory.UserLoanHistoryRepository
 import com.group.libraryapp.domain.user.loanhistory.UserLoanStatus
 import com.group.libraryapp.dto.book.request.BookLoanRequest
 import com.group.libraryapp.dto.book.request.BookRequest
 import com.group.libraryapp.dto.book.request.BookReturnRequest
+import com.group.libraryapp.dto.book.response.BookStatResponse
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -115,6 +117,27 @@ class BookServiceTest @Autowired constructor(
         assertThat(loanHistories[0].status).isEqualTo(UserLoanStatus.RETURNED)
     }
 
+
+    @Test
+    @DisplayName("책 대여 권수를 정상 확인한다.")
+    fun countLoanedBookTest() {
+        // given
+        val user = this.userRepository.save(User("아저씨", 50))
+        this.userLoanHistoryRepository.saveAll(
+            listOf(
+                UserLoanHistory.fixture(user = user, "A"),
+                UserLoanHistory.fixture(user = user, "B", UserLoanStatus.RETURNED),
+                UserLoanHistory.fixture(user = user, "B", UserLoanStatus.RETURNED),
+            )
+        )
+
+        // when
+        val result = this.bookService.countLoanedBook();
+
+        // then
+        assertThat(result).isEqualTo(1)
+    }
+
     @Test
     @DisplayName("책 별로 얼마나 많은 수량이 있는지 리턴한다.")
     fun getBookStatisticTest() {
@@ -133,7 +156,13 @@ class BookServiceTest @Autowired constructor(
 
         // then
         assertThat(statistic).hasSize(3)
-        assertThat(statistic).extracting("count").containsExactlyInAnyOrder(2, 1, 1)
+        assertCount(statistic, BookType.COMPUTER, 2)
+        assertCount(statistic, BookType.ECONOMY, 1)
+        assertCount(statistic, BookType.LANGUAGE, 1)
+    }
+
+    private fun assertCount(results: List<BookStatResponse>, type: BookType, count: Int) {
+        assertThat(results.first { result -> result.type == type }.count).isEqualTo(count);
     }
 
 
