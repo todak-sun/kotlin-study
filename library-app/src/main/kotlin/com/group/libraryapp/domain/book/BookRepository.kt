@@ -6,4 +6,6 @@ interface BookRepository : JpaRepository<Book, Long> {
 
     fun findByName(bookName: String): Book?
 
+    // count query
+
 }
