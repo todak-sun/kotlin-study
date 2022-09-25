@@ -54,9 +54,10 @@ class BookService(
 
     @Transactional(readOnly = true)
     fun getBookStatistic(): List<BookStatResponse> {
-        return bookRepository.findAll()
-            .groupBy { it.type }
-            .map { (type, books) -> BookStatResponse(type, books.size) }
+        return this.bookRepository.getStats()
+//        return bookRepository.findAll()
+//            .groupBy { it.type }
+//            .map { (type, books) -> BookStatResponse(type, books.size.toLong()) }
     }
 
 }
