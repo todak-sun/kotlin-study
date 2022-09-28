@@ -1,0 +1,13 @@
+package io.todak.sftptesting
+
+import org.junit.jupiter.api.Test
+import org.springframework.boot.test.context.SpringBootTest
+
+@SpringBootTest
+class SftpTestingApplicationTests {
+
+    @Test
+    fun contextLoads() {
+    }
+
+}
