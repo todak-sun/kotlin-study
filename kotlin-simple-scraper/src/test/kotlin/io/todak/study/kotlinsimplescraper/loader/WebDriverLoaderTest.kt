@@ -29,3 +29,7 @@ class WebDriverLoaderTest {
     }
 
 }
+
+class TempDto (val imageSrc: String, val title: String){
+
+}
