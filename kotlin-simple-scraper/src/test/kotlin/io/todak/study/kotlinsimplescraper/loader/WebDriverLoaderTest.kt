@@ -15,21 +15,21 @@ class WebDriverLoaderTest {
                 driver.findElement(By.cssSelector("#contents > div.cnt > div.cnt_section.mt50 > div > div > div:nth-child(3) > ul"))
 
             val productBoxes = foundedElement.findElements(By.cssSelector("li > div.prod_box"))
-            productBoxes.forEach { box ->
+            val products = productBoxes.map { box ->
                 val imageSrc = box.findElement(By.cssSelector("p.img > img")).getAttribute("src")
                 val title = box.findElement(By.cssSelector("p.tit")).text
                 val price = box.findElement(By.cssSelector("p.price > span.cost")).text
-                println("imageSrc: ${imageSrc}, title: ${title}, price: $price")
+                TempDto(imageSrc, title, price.toInt())
             }
+
+
         } finally {
             driver.close()
         }
-
-
     }
 
 }
 
-class TempDto (val imageSrc: String, val title: String){
+class TempDto(val imageSrc: String, val title: String, val price: Int) {
 
 }
